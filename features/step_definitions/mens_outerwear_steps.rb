@@ -1,7 +1,3 @@
-Given(/^I am on polymer\-project shop$/) do
-  homepage.visit
-end
-
 When(/^I click to the men's outerwear$/) do
   homepage.mens_outerwear_link.click
   mens_outerwear_page.wait_for_page_to_load
