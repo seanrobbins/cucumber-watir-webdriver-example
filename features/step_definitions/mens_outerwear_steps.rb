@@ -4,7 +4,7 @@ When(/^I click to the men's outerwear$/) do
 end
 
 Then(/^the available men's clothing is listed for me$/) do
-  expect(mens_outerwear_page.items_list.size).to eq(16)
+  expect(mens_outerwear_page.items_list.size).to eq(mens_outerwear_page.total_items)
   mens_outerwear_page.items_list.each_with_index do |item, index|
     expect(item.div.text.to_s).to eq(mens_outerwear_page.item_titles[index])
   end

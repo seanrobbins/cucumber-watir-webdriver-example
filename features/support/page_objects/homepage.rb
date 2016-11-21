@@ -10,6 +10,10 @@ class Homepage < Page
   def mens_outerwear_link
     @browser.link(:href => "/list/mens_outerwear")
   end
+
+  def ladies_outerwear_link
+    @browser.link(:href => "/list/ladies_outerwear")
+  end
 end
 
 def homepage

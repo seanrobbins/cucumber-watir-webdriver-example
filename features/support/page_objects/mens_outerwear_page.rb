@@ -1,20 +1,17 @@
-require_relative 'page'
+require_relative 'shopping_page'
 
-class MensOuterwearPage < Page
+class MensOuterwearPage < ShoppingPage
   def initialize(browser)
     super
     @url = @base_url + "/list/mens_outerwear"
     @expected_element = @browser.h1(:text => "Men's Outerwear")
+    @total_items = 16
   end
 
   def wait_for_page_to_load
     super
-    Watir::Wait.until{ @browser.elements(:tag_name => "shop-list-item").size == 16 }
+    Watir::Wait.until{ items_list.size == @total_items}
   end
-
-  def items_list
-    @browser.elements(:tag_name => "shop-list-item")
-  end 
 
   def item_titles
     [   
