@@ -7,7 +7,7 @@ class Page
   end
 
   def visit
-   @browser.goto @url
+   @browser.goto @url + "?dom=shady"
    wait_for_page_to_load
   end
 

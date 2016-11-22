@@ -3,7 +3,7 @@ require_relative 'page'
 class Homepage < Page
   def initialize(browser)
     super
-    @url = @base_url + "?dom=shady"
+    @url = @base_url
     @expected_element = @browser.elements(:tag_name => "shop-app", :text => "SHOP")[0]
   end
 

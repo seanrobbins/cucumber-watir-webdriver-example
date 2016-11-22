@@ -3,7 +3,7 @@ require_relative 'shopping_page'
 class LadiesOuterwearPage < ShoppingPage
   def initialize(browser)
     super
-    @url = @base_url + "/list/ladies_outerwear"
+    @url = @base_url + "list/ladies_outerwear"
     @expected_element = @browser.h1(:text => "Ladies Outerwear")
     @total_items = 6
   end
