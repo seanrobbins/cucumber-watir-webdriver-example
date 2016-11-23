@@ -1,35 +1,28 @@
 Given(/^I have some items in my basket$/) do
   ladies_outerwear_page.visit
   ladies_outerwear_page.items_list[1].click
-  @browser.h1(:text => ladies_outerwear_page.item_titles[1]).wait_until_present
-  @browser.button(:text => "Add to Cart").click 
-  @browser.div(:class => "cart-badge", :text => "1").wait_until_present
+
+  item_page.wait_for_page_to_load
+  expect(item_page.heading.text).to eq(ladies_outerwear_page.item_titles[1]) 
+  item_page.add_to_cart_button.click
+  item_page.header_cart.item_added? 
+  
   mens_tshirt_page.visit
   mens_tshirt_page.items_list[1].click
-  @browser.h1(:text => mens_tshirt_page.item_titles[1]).wait_until_present
-  @browser.button(:text => "Add to Cart").click 
-  @browser.div(:class => "cart-badge", :text => "2").wait_until_present
+  
+  item_page.wait_for_page_to_load 
+  expect(item_page.heading.text).to eq(mens_tshirt_page.item_titles[1])
+  item_page.add_to_cart_button.click
+  item_page.header_cart.item_added? 
 end
 
 Then(/^I can successfully checkout$/) do
-  @browser.link(:text => "Checkout").wait_until_present
-  @browser.link(:text => "Checkout").click
-  
-  @browser.button(:value => "Place Order").wait_until_present 
-  @browser.text_field(:id => "accountEmail").set "test@testing.com"
-  @browser.text_field(:id => "accountPhone").set "0123456789"
-  @browser.text_field(:id => "shipAddress").set "1 Test Place"
-  @browser.text_field(:id => "shipCity").set "Testville"
-  @browser.text_field(:id => "shipState").set "TN"
-  @browser.text_field(:id => "shipZip").set "34567"
-  @browser.select_list(:id => "shipCountry").select_value "US" 
-  @browser.text_field(:id => "ccName").set "Mr T Tester"
-  @browser.text_field(:id => "ccNumber").set "4111111111111111"
-  @browser.select_list(:id => "ccExpMonth").select_value "01" 
-  @browser.select_list(:id => "ccExpYear").select_value Time.now.year + 1
-  @browser.text_field(:id => "ccCVV").set "111"
-  @browser.button(:value => "Place Order").click 
+  shop_cart_modal.wait_until_present
+  shop_cart_modal.checkout_link.click
+ 
+  checkout_page.wait_for_page_to_load 
+  checkout_page.submit_delivery_and_payment_details
 
-  @browser.link(:text => "Finish").wait_until_present
-  expect(@browser.url).to eq("https://shop.polymer-project.org/checkout/success")
+  confirmation_page.wait_for_page_to_load
+  expect(@browser.url).to eq(confirmation_page.url)
 end

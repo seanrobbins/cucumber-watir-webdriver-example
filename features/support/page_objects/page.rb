@@ -1,5 +1,8 @@
+require_relative './header_cart'
+
 class Page
   attr_accessor :base_url, :url, :expected_element
+  include HeaderCart 
 
   def initialize(browser)
     @base_url = "https://shop.polymer-project.org/"
